@@ -337,7 +337,7 @@ deepIterator(userInfo);
 // LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
 ```
 
-To keep track of how many times our function is recursively invoking itself, it might be helpful to keep track with a counter variable:
+To keep track of how many times our function is recursively invoking itself, it might be helpful to use a counter variable:
 ```js
 let counter = 0;
 

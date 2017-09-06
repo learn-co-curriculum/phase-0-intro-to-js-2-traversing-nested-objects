@@ -1,6 +1,12 @@
 tags:
-  - javascript
+  - object
+  - array
+  - debugger
+  - recursion
+  - debugging
+  - iteration
+  - for...in
+  - readme
 languages:
   - javascript
-resources:
-  - 1
+resources: 4

@@ -115,47 +115,47 @@ In the above example, we had a name for each field that we wanted to access (`fi
 
 Working with nested arrays isn't all that different from nested objects. Simply replace the named properties of nested objects with indexes of nested arrays. Perhaps an example to clear things up:
 ```js
-const numbers = [1, [2, [4, [5, [6]], 3]]];
+const letters = ['a', ['b', ['c', ['d', ['e']], 'f']]];
 ```
 
-Given the above nested array, how would we get the number `6`? First, we'd need the second element in `numbers`, `numbers[1]`:
+Given the above nested array, how would we get the letter `'e'`? First, we'd need the second element in `letters`, `letters[1]`:
 ```js
-numbers[1];
-// => [2, [4, [5, [6]], 3]]
+letters[1];
+// => ["b", ["c", ["d", ["e"]], "f"]]
 ```
 
-Then we'd need the second element of that element, so `numbers[1][1]`:
+Then we'd need the second element of that element, so `letters[1][1]`:
 ```js
-numbers[1][1];
-// => [4, [5, [6]], 3]
+letters[1][1];
+// => ["c", ["d", ["e"]], "f"]
 ```
 
-Then the second element of **that** element, `numbers[1][1][1]`:
+Then the second element of **that** element, `letters[1][1][1]`:
 ```js
-numbers[1][1][1];
-// => [5, [6]]
+letters[1][1][1];
+// => ["d", ["e"]]
 ```
 
-And the second element of ***that*** element, `numbers[1][1][1][1]`:
+And the second element of ***that*** element, `letters[1][1][1][1]`:
 ```js
-numbers[1][1][1][1];
-// => [6]
+letters[1][1][1][1];
+// => ["e"]
 ```
 
-Finally, we want the first element in that final nested array, `numbers[1][1][1][1][0]`:
+Finally, we want the first element in that final nested array, `letters[1][1][1][1][0]`:
 ```js
-numbers[1][1][1][1][0];
-// => 6
+letters[1][1][1][1][0];
+// => "e"
 ```
 
 Whew! That's a lot to keep track of. Just remember that each lookup (each set of square brackets) effectively brings a different array to the fore. To recap:
 ```js
-[1, [2, [4, [5, [6]], 3]]] // numbers
-[2, [4, [5, [6]], 3]]      // numbers[1]
-[4, [5, [6]], 3]           // numbers[1][1]
-[5, [6]]                   // numbers[1][1][1]
-[6]                        // numbers[1][1][1][1]
-6                          // numbers[1][1][1][1][0]
+["a", ["b", ["c", ["d", ["e"]], "f"]]] // letters
+["b", ["c", ["d", ["e"]], "f"]]        // letters[1]
+["c", ["d", ["e"]], "f"]               // letters[1][1]
+["d", ["e"]]                           // letters[1][1][1]
+["e"]                                  // letters[1][1][1][1]
+"a"                                    // letters[1][1][1][1][0]
 ```
 
 ## Iterating over nested objects and arrays
@@ -253,7 +253,7 @@ Now we've gone two levels deep, which gets us a bit closer to our goal. However,
 ![No! There has to be another way.](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/no_there_has_to_be_another_way.gif)
 
 ### Recursion
-Lucky for us, there **is** another way: recursion. It's one of the more complicated concepts in programming, so don't sweat it if it doesn't click immediately. We'll introduce it here but come back to it periodically throughout the rest of the JavaScript material. Essentially, **a recursive function is a function that calls itself**.
+Lucky for us, there **is** another way: recursion. It's one of the more powerful concepts in programming, but it's also pretty hard to grasp at first. **Don't sweat it if it doesn't click immediately**. We'll introduce the concept here but come back to it periodically throughout the rest of the JavaScript material. Essentially, **a recursive function is a function that calls itself**.
 
 Whoa, that sounds intense. Let's take a look at a better way to write our `shallowIterator()` to take advantage of recursion:
 ```js

@@ -61,30 +61,34 @@ const userInfo = {
     name: 'Flatbook Labs',
     jobTitle: 'Developer Apprentice'
   },
-  friends: [{
-    firstName: 'Joe',
-    lastName: 'Burgess',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Developer Apprentice'
+  friends: [
+    {
+      firstName: 'Joe',
+      lastName: 'Burgess',
+      company: {
+        name: 'Flatbook Labs',
+        jobTitle: 'Developer Apprentice'
+      }
+    },
+    {
+      firstName: 'Gabe',
+      lastName: 'Jackson',
+      company: {
+        name: 'Flatbook Labs',
+        jobTitle: 'Lead Developer'
+      }
     }
-  },
-  {
-    firstName: 'Gabe',
-    lastName: 'Jackson',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Lead Developer'
+  ],
+  projects: [
+    {
+      title: 'Flatbook',
+      description: 'The premier Flatiron School-based social network in the world.'
+    },
+    {
+      title: 'Scuber',
+      description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
     }
-  }],
-  projects: [{
-    title: 'Flatbook',
-    description: 'The premier Flatiron School-based social network in the world.'
-  },
-  {
-    title: 'Scuber',
-    description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
-  }]
+   ]
 };
 ```
 
@@ -292,30 +296,34 @@ const userInfo = {
     name: 'Flatbook Labs',
     jobTitle: 'Developer Apprentice'
   },
-  friends: [{
-    firstName: 'Joe',
-    lastName: 'Burgess',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Developer Apprentice'
+  friends: [
+    {
+      firstName: 'Joe',
+      lastName: 'Burgess',
+      company: {
+        name: 'Flatbook Labs',
+        jobTitle: 'Developer Apprentice'
+      }
+    },
+    {
+      firstName: 'Gabe',
+      lastName: 'Jackson',
+      company: {
+        name: 'Flatbook Labs',
+        jobTitle: 'Lead Developer'
+      }
     }
-  },
-  {
-    firstName: 'Gabe',
-    lastName: 'Jackson',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Lead Developer'
+  ],
+  projects: [
+    {
+      title: 'Flatbook',
+      description: 'The premier Flatiron School-based social network in the world.'
+    },
+    {
+      title: 'Scuber',
+      description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
     }
-  }],
-  projects: [{
-    title: 'Flatbook',
-    description: 'The premier Flatiron School-based social network in the world.'
-  },
-  {
-    title: 'Scuber',
-    description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
-  }]
+  ]
 };
 
 deepIterator(userInfo);

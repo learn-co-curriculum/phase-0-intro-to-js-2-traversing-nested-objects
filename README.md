@@ -155,7 +155,7 @@ Whew! That's a lot to keep track of. Just remember that each lookup (each set of
 ["c", ["d", ["e"]], "f"]               // letters[1][1]
 ["d", ["e"]]                           // letters[1][1][1]
 ["e"]                                  // letters[1][1][1][1]
-"a"                                    // letters[1][1][1][1][0]
+"e"                                    // letters[1][1][1][1][0]
 ```
 
 ## Iterating over nested objects and arrays

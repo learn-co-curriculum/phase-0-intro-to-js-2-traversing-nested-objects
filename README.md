@@ -442,8 +442,7 @@ This is very advanced stuff, and you should absolutely not get discouraged if it
 You got this!
 
 ## Resources
-* [Microsoft: Recursion (JavaScript)](https://docs.microsoft.com/en-us/scripting/javascript/advanced/recursion-javascript)
-* [Codecademy: Recursion in JavaScript](https://www.codecademy.com/courses/javascript-lesson-205/0/1)
+* [MDN: Recursion (JavaScript)](https://docs.microsoft.com/en-us/scripting/javascript/advanced/recursion-javascript)
 * [freeCodeCamp: Recursion in JavaScript](https://medium.freecodecamp.org/recursion-in-javascript-1608032c7a1f)
 * [JavaScript.info: Debugging in Chrome](https://javascript.info/debugging-chrome)
 

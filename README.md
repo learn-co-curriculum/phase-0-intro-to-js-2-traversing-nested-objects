@@ -2,14 +2,16 @@
 
 ## Learning Goals
 
-* Explain why nested objects are useful.
-* Describe how to access inner properties.
-* Use recursion to iterate over nested objects and arrays.
-* Deploy the `debugger` statement to assist in debugging code.
+* Revisit why nested objects are useful
+* Review how to access inner properties
+* Use recursion to iterate over nested objects and arrays
 
 ## Introduction
 
-Here at Flatbook, we have some pretty complex data-modeling needs. For instance, think about the breadth of information we might want to display on each user's profile page:
+You've just been onboarded to the dev team working on Flatbook, the world's
+premier Flatiron School-based social network. Here at Flatbook, we have some
+pretty complex data-modeling needs. For instance, think about the breadth of
+information we might want to display on each user's profile page:
 
 * First name
 * Last name
@@ -26,7 +28,8 @@ Here at Flatbook, we have some pretty complex data-modeling needs. For instance,
   * Title
   * Description
 
-We can already start to see some problems with trying to fit all of this into a _shallow_ (non-nested) JavaScript object:
+We can already start to see some problems with trying to fit all of this into a
+_shallow_ (non-nested) JavaScript object:
 
 ```js
 const userInfo = {
@@ -34,11 +37,11 @@ const userInfo = {
   lastName: 'Flombaum',
   companyName: 'Flatbook Labs',
   jobTitle: 'Developer Apprentice',
-  friend1firstName: 'Joe',
+  friend1firstName: 'Nancy',
   friend1lastName: 'Burgess',
   friend1companyName: 'Flatbook Labs',
   friend1jobTitle: 'Developer Apprentice',
-  friend2firstName: 'Gabe',
+  friend2firstName: 'Corinna',
   friend2lastName: 'Jackson',
   friend2companyName: 'Flatbook Labs',
   friend2jobTitle: 'Senior Developer',
@@ -49,15 +52,16 @@ const userInfo = {
 };
 ```
 
-Goodness, that's messy. It would be a nightmare to keep the object updated. If Avi un-friends Joe, do we shift Gabe's info into the `friend1...` slots and delete the `friend2...` properties, or do we leave Gabe as `friend2...` and delete the `friend1...` properties? There are no good answers. Except...
+Goodness, that's messy. It would be a nightmare to keep the object updated. If
+Avi un-friends Nancy, do we shift Corinna's info into the `friend1...` slots and
+delete the `friend2...` properties, or do we leave Corinna as `friend2...` and
+delete the `friend1...` properties? There are no good answers. Except...
 
 ## Objects in Objects
 
-Remember when we said that the values in an object can be _anything_? We've hinted at this a bit already, but the properties in an object **can point to other objects**.
-
-![Mind blown.](http://i.giphy.com/5aLrlDiJPMPFS.gif)
-
-If we reorganize the above object a bit, it becomes infinitely easier to read and update:
+Recall from the lesson on objects that the values in an object can be
+_anything_, including another object. If we reorganize the above object a bit,
+it becomes significantly easier to read and update:
 
 ```js
 const userInfo = {
@@ -68,7 +72,7 @@ const userInfo = {
     jobTitle: 'Developer Apprentice'
   },
   friends: [{
-    firstName: 'Joe',
+    firstName: 'Nancy',
     lastName: 'Burgess',
     company: {
       name: 'Flatbook Labs',
@@ -76,7 +80,7 @@ const userInfo = {
     }
   },
   {
-    firstName: 'Gabe',
+    firstName: 'Corinna',
     lastName: 'Jackson',
     company: {
       name: 'Flatbook Labs',
@@ -94,90 +98,96 @@ const userInfo = {
 };
 ```
 
-We've pared the sixteen messy properties in our earlier first attempt down to a svelte five: `firstName`, `lastName`, `company`, `friends`, and `projects`. `company` points at another object, and both `friends` and `projects` are arrays of objects. Let's practice accessing some of those beautifully nested data points.
+We've pared the sixteen messy properties in our first attempt down to a svelte
+five: `firstName`, `lastName`, `company`, `friends`, and `projects`. `company`
+points at another object, and both `friends` and `projects` are arrays of
+objects. Let's practice accessing some of those beautifully nested data points.
+Copy `userInfo` into [repl.it][] and follow along.
 
-To grab Avi's last name:
+To review, for a property at the top level of our object, we can grab a value
+using dot notation:
 
 ```js
 userInfo.lastName;
-// => "Flombaum"
+//=> "Flombaum"
 ```
 
-For the first name of his first friend:
+If the property we're accessing is nested inside another object, we just append
+the additional key(s):
+
+```js
+userInfo.company.jobTitle;
+//=> "Developer Apprentice"
+```
+
+If the property is nested inside an array, we need to specify the index in the
+array for the object that we want. To get the first name of Avi's first friend and the title of his second project:
 
 ```js
 userInfo.friends[0].firstName;
-// => "Joe"
-```
+//=> "Nancy"
 
-For the title of his second project:
-
-```js
 userInfo.projects[1].title;
-// => "Scuber"
+//=> "Scuber"
 ```
 
-Create your own nested data structure in the JS console and practice accessing various pieces of data.
+It's worth investing some time into getting comfortable with nested data
+structures. Create your own in the REPL and practice accessing various pieces of
+data.
 
 ## Arrays in arrays
 
-In the above example, we had a name for each field that we wanted to access (`firstName`, `company`, `jobTitle`, and so on). For example, to access the name of Avi's second friend, we could use `userInfo.friends[1].firstName`. Notice that we need to specify the index in the `friends` array for the friend that we want.
-
-Working with nested arrays isn't all that different from nested objects. Simply replace the named properties of nested objects with indexes of nested arrays. Perhaps an example to clear things up:
+Working with nested arrays isn't all that different from nested objects. Simply
+replace the named properties of nested objects with indexes of nested arrays.
+Let's review with an example:
 
 ```js
 const letters = ['a', ['b', ['c', ['d', ['e']], 'f']]];
 ```
 
-Given the above nested array, how would we get the letter `'e'`? First, we'd need the second element in `letters`, `letters[1]`:
+Given the above nested array, how would we get the letter `'e'`? First, we'd
+need the second element in `letters`, `letters[1]`:
 
 ```js
 letters[1];
-// => ["b", ["c", ["d", ["e"]], "f"]]
+//=> ["b", ["c", ["d", ["e"]], "f"]]
 ```
 
 Then we'd need the second element of that element, so `letters[1][1]`:
 
 ```js
 letters[1][1];
-// => ["c", ["d", ["e"]], "f"]
+//=> ["c", ["d", ["e"]], "f"]
 ```
 
 Then the second element of **that** element, `letters[1][1][1]`:
 
 ```js
 letters[1][1][1];
-// => ["d", ["e"]]
+//=> ["d", ["e"]]
 ```
 
 And the second element of ***that*** element, `letters[1][1][1][1]`:
 
 ```js
 letters[1][1][1][1];
-// => ["e"]
+//=> ["e"]
 ```
 
 Finally, we want the first element in that final nested array, `letters[1][1][1][1][0]`:
 
 ```js
 letters[1][1][1][1][0];
-// => "e"
+//=> "e"
 ```
 
-Whew! That's a lot to keep track of. Just remember that each lookup (each set of square brackets) effectively brings a different array to the fore. To recap:
-
-```js
-["a", ["b", ["c", ["d", ["e"]], "f"]]] // letters
-["b", ["c", ["d", ["e"]], "f"]]        // letters[1]
-["c", ["d", ["e"]], "f"]               // letters[1][1]
-["d", ["e"]]                           // letters[1][1][1]
-["e"]                                  // letters[1][1][1][1]
-"e"                                    // letters[1][1][1][1][0]
-```
+Whew! That's a lot to keep track of. Just remember that each lookup (each set of
+square brackets) "drills down" into each successive nested array.
 
 ## Iterating over nested objects and arrays
 
-Our initial shallow object had a lot of drawbacks, but one advantage is that it was very easy to iterate over all of the information:
+Our initial shallow object had a lot of drawbacks, but one advantage of it is
+that it was very easy to iterate over all of the information:
 
 ```js
 const userInfo = {
@@ -185,11 +195,11 @@ const userInfo = {
   lastName: 'Flombaum',
   companyName: 'Flatbook Labs',
   jobTitle: 'Developer Apprentice',
-  friend1firstName: 'Joe',
+  friend1firstName: 'Nancy',
   friend1lastName: 'Burgess',
   friend1companyName: 'Flatbook Labs',
   friend1jobTitle: 'Developer Apprentice',
-  friend2firstName: 'Gabe',
+  friend2firstName: 'Corinna',
   friend2lastName: 'Jackson',
   friend2companyName: 'Flatbook Labs',
   friend2jobTitle: 'Senior Developer',
@@ -199,7 +209,7 @@ const userInfo = {
   project2description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
 };
 
-function shallowIterator (target) {
+function shallowIterator(target) {
   for (const key in target) {
     console.log(target[key]);
   }
@@ -210,11 +220,11 @@ shallowIterator(userInfo);
 // LOG: Flombaum
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Joe
+// LOG: Nancy
 // LOG: Burgess
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Gabe
+// LOG: Corinna
 // LOG: Jackson
 // LOG: Flatbook Labs
 // LOG: Senior Developer
@@ -224,7 +234,7 @@ shallowIterator(userInfo);
 // LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
 ```
 
-It also works with arrays:
+We can also use it with arrays:
 
 ```js
 const primes = [2, 3, 5, 7, 11];
@@ -237,7 +247,10 @@ shallowIterator(primes);
 // LOG: 11
 ```
 
-However, our `shallowIterator()` function can't handle nested collections:
+> **Note**: our `shallowIterator()` function uses `for...in` to iterate through the object that's passed to it. We learned in the previous lesson that `for...in` is not the best iterator to use with arrays. Because we're not currently working in the browser (and therefore cross-browser consistency isn't an issue), we can safely ignore that problem for the moment. Since this example is fairly complicated, we'll work through the process using `for...in` first then, once we've got that working, build a modification that will handle arrays appropriately.
+
+Unfortunately, as you may be able to guess from its name, our `shallowIterator()`
+function can't handle nested collections:
 
 ```js
 const numbers = [1, [2, [4, [5, [6]], 3]]];
@@ -247,10 +260,26 @@ shallowIterator(numbers);
 // LOG: [2, [4, [5, [6]], 3]]
 ```
 
-It's trained to iterate over the passed-in array's elements or object's properties, but our function has no concept of _depth_. When it tries to iterate over the above nested `numbers` array, it sees only two elements at the top level of the array: the number `1` and **another** array, `[2, [4, [5, [6]], 3]]`. It `console.log()`s out both of those elements and calls it a day, never realizing that we also want it to print out the elements inside the nested array. Let's modify our function so that if it encounters a nested object or array, it will additionally print out all of the data contained therein:
+It's trained to iterate over the passed-in array's elements or object's
+properties, but our function has no concept of _depth_. When it tries to iterate
+over the above nested `numbers` array, it sees only two elements at the top
+level of the array: the number `1` and **another** array, `[2, [4, [5, [6]],
+3]]`. It `console.log()`s out both of those elements and calls it a day, never
+realizing that we also want it to print out the elements inside the nested
+array.
+
+It behaves similarly with objects. If we passed the nested version of `userInfo`
+to it, the values at the top level of the object ("Avi" and "Flombaum") would be
+logged correctly, but for the `company` key, the object it points to would be
+logged, and, for `friends` and `projects`, arrays of objects would be logged.
+Try it out for yourself in the REPL.
+
+Let's modify our function so that if it encounters a nested object or array, it
+will additionally print out all of the data contained therein. We can do this
+using an `if` condition and the `typeof` operator:
 
 ```js
-function shallowIterator (target) {
+function shallowIterator(target) {
   for (const key in target) {
     if (typeof target[key] === 'object') {
       for (const nestedKey in target[key]) {
@@ -268,21 +297,32 @@ shallowIterator(numbers);
 // LOG: [4, [5, [6]], 3]
 ```
 
-Now we've gone two levels deep, which gets us a bit closer to our goal. However, there are two pretty clear drawbacks to this strategy:
+Now we've gone two levels deep, which gets us a bit closer to our goal. However,
+there are two pretty clear drawbacks to this strategy:
 
-1. We'll have to add a new `for...in` statement for every nested data structure we want to traverse, quickly ballooning our function out to an unmanageable size.
-2. Since we need to add a separate `for...in` statement for each additional nested data structure, we'll have to know exactly what the target structure looks like ahead of time and update our function accordingly. That's a lot of repetitive, error-prone work!
+1. We'll have to add a new `for...in` statement for every level of nesting,
+   quickly ballooning our function out to an unmanageable size.
+2. Since we need to add a separate `for...in` statement for each additional
+   level, we'll have to know exactly what the target structure looks like ahead
+   of time and update our function accordingly. That's a lot of repetitive,
+   error-prone work, and it results in a function that can only be used for data
+   with that particular structure.
 
 ![No! There has to be another way.](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/no_there_has_to_be_another_way.gif)
 
 ### Recursion
 
-Lucky for us, there **is** another way: recursion. It's one of the more powerful concepts in programming, but it's also pretty hard to grasp at first. **Don't sweat it if it doesn't click immediately**. We'll introduce the concept here but come back to it periodically throughout the rest of the JavaScript material. Essentially, **a recursive function is a function that calls itself**.
+Lucky for us, there **is** another way: recursion. It's one of the more powerful
+concepts in programming, but it's also pretty hard to grasp at first. **Don't
+sweat it if it doesn't click immediately**. We'll introduce the concept here but
+come back to it periodically throughout the rest of the JavaScript material.
+Essentially, **a recursive function is a function that calls itself**.
 
-Whoa, that sounds intense. Let's take a look at a better way to write our `shallowIterator()` to take advantage of recursion:
+Let's take a look at a better way to write our `shallowIterator()` to take
+advantage of recursion:
 
 ```js
-function deepIterator (target) {
+function deepIterator(target) {
   if (typeof target === 'object') {
     for (const key in target) {
       deepIterator(target[key]);
@@ -293,7 +333,13 @@ function deepIterator (target) {
 }
 ```
 
-When we invoke `deepIterator()` with an argument, the function first checks if the argument is an object or array (recall that the `typeof` operator returns `"object"` for arrays as well). If the argument **isn't** an object, `deepIterator()` simply `console.log()`s out the argument and exits. However, if the argument **is** an object, we iterate over the properties (or elements) in the object, passing each to `deepIterator()` and **re-invoking the function**. That's recursion!
+When we invoke `deepIterator()` with an argument, the function first checks if
+the argument is an object or array (recall that the `typeof` operator returns
+`"object"` for arrays as well). If the argument **isn't** an object,
+`deepIterator()` simply `console.log()`s out the argument and exits. However, if
+the argument **is** an object, we iterate over the properties (or elements) in
+the object, passing each to `deepIterator()` and **re-invoking the function**.
+That's recursion!
 
 Let's see it in action:
 
@@ -309,7 +355,18 @@ deepIterator(numbers);
 // LOG: 3
 ```
 
-It also works with combinations of nested objects and arrays:
+To help us see what's going on here let's use a REPL. We've added a
+`console.log()` at the top of the function that will log whatever argument was
+passed to our function. We've also added a label to the second `console.log()`
+so you can see the values that are getting logged from the `else` statement. If
+you press the "Run" button, you will see an "Argument" logged for each time the
+function is called. You will also see a "Logged value" for each time the
+argument is not an object. Referring to the output of the `console.log()`s, step
+through the function for each element to trace what's happening.
+
+<iframe height="400px" width="100%" src="https://repl.it/@LizBurton/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+
+Our function also works with combinations of nested objects and arrays:
 
 ```js
 const userInfo = {
@@ -320,7 +377,7 @@ const userInfo = {
     jobTitle: 'Developer Apprentice'
   },
   friends: [{
-    firstName: 'Joe',
+    firstName: 'Nancy',
     lastName: 'Burgess',
     company: {
       name: 'Flatbook Labs',
@@ -328,7 +385,7 @@ const userInfo = {
     }
   },
   {
-    firstName: 'Gabe',
+    firstName: 'Corinna',
     lastName: 'Jackson',
     company: {
       name: 'Flatbook Labs',
@@ -350,11 +407,11 @@ deepIterator(userInfo);
 // LOG: Flombaum
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Joe
+// LOG: Nancy
 // LOG: Burgess
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Gabe
+// LOG: Corinna
 // LOG: Jackson
 // LOG: Flatbook Labs
 // LOG: Lead Developer
@@ -369,7 +426,7 @@ To keep track of how many times our function is recursively invoking itself, it 
 ```js
 let counter = 0;
 
-function deepIterator (target) {
+function deepIterator(target) {
   counter++;
 
   if (typeof target === 'object') {
@@ -386,11 +443,11 @@ deepIterator(userInfo);
 // LOG: Flombaum
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Joe
+// LOG: Nancy
 // LOG: Burgess
 // LOG: Flatbook Labs
 // LOG: Developer Apprentice
-// LOG: Gabe
+// LOG: Corinna
 // LOG: Jackson
 // LOG: Flatbook Labs
 // LOG: Lead Developer
@@ -400,76 +457,124 @@ deepIterator(userInfo);
 // LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
 
 counter;
-// => 26
+//=> 26
 ```
 
-So we invoked `deepIterator()` once, and it invoked itself 25 additional times! If we look closely at our nested `userInfo` object, we can see that it contains two arrays, seven nested objects, and sixteen key-value pairs where the value is a string. Add those all up (2 + 7 + 16), and you get our 25 recursive invocations!
+So we invoked `deepIterator()` once, and it invoked itself 25 additional times!
+If we look closely at our nested `userInfo` object, we can see that it contains
+two arrays, seven nested objects, and sixteen key-value pairs where the value is
+a string. Add those all up (2 + 7 + 16), and you get our 25 recursive
+invocations! (If you're following along in the REPL, you can check the value of
+`counter` in the terminal after running the code.)
 
-## `debugger`
+## Modifying our Program to Better Handle Arrays
 
-Up to this point, we've been using `console.log()` for most of our debugging needs. There's nothing wrong with that strategy — it's often preferable to more complex options — but it's important to familiarize ourselves with a popular alternative: the `debugger` keyword.
+In our `deepIterator()` function, we're using an `if` statement to evaluate the
+argument that's passed in. We do one thing if `target` is an object and
+something else if it's not. Now we want to modify our function to handle one
+more situation: when `target` is an array. Doing this is a simple matter of
+adding an `else if` to our `if` statement; its code block will execute **if**
+`target` is an array.
 
-`debugger` is JavaScript's built-in debugging solution, and it allows us to stop our code mid-execution and poke around a bit. We can check on the current contents of a variable or see whether a function is available within the current scope. To get started, all you have to do is drop a `debugger` at the point(s) in your code at which you'd like to pause:
+We can determine whether a variable is an array using an [Array Static
+Method][array-methods], [`Array.isArray()`][isArray]. Let's use that in our new
+condition. We'll also add a new `console.log()` to verify that our code is
+correctly detecting the arrays (we've commented out the final `console.log()`
+for now):
 
 ```js
-function shallowIterator (target) {
-  debugger;
-
-  for (const key in target) {
-    debugger;
-
-    console.log(target[key]);
+function deepIterator(target) {
+  if (typeof target === 'object') {
+    for (const key in target) {
+      deepIterator(target[key]);
+    }
+  } else if (Array.isArray(target)) {
+    console.log("We found an array");
+    // iterate through the array
+  } else {
+    // console.log(target);
   }
 }
+
+deepIterator(userInfo);
 ```
 
-Here we've placed two debuggers in our `shallowIterator()` function (you can use as many as you'd like). Let's run the code in our browser's JS console and see what happens:
+Now if we run the code, we see ...nothing. For some reason, our code isn't
+detecting the arrays. Remember that **arrays are objects**, so our `if`
+condition returns true for arrays as well as objects and the `else if` never
+executes. We can fix this by reversing the order of our conditions. Let's also
+put the second `console.log()` back in, and try running the code again.
 
 ```js
-const primes = [2, 3, 5, 7, 11];
+function deepIterator(target) {
+  if (Array.isArray(target)) {
+    // iterate through the array
+    console.log("We found an array");
+  } else if (typeof target === 'object') {
+    for (const key in target) {
+      deepIterator(target[key]);
+    }
+  } else {
+    console.log(target);
+  }
+}
 
-shallowIterator(primes);
+deepIterator(userInfo);
+// LOG: Avi
+// LOG: Flombaum
+// LOG: Flatbook Labs
+// LOG: Developer Apprentice
+// LOG: We found an array
+// LOG: We found an array
 ```
 
-As soon as the JavaScript engine hits the first `debugger` statement, it pauses the execution of our code and we'll see this yellow banner pop up in the main browser window:
+Much better! The logs are working for the primitive values and the non-array
+object, so now we just need to code the body of our new `if` statement, using
+`for...of`:
 
-![Paused in debugger](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/paused_in_debugger.png)
+```js
+function deepIterator(target) {
+  if (Array.isArray(target)) {
+    for (const element of target) {
+      deepIterator(element);
+    }
+  } else if (typeof target === 'object') {
+    for (const key in target) {
+      deepIterator(target[key]);
+    }
+  } else {
+    console.log(target);
+  }
+}
 
-Encountering a `debugger` typically pops the browser's JS console open, but, if it's still closed at this point, go ahead and open it. You should see something like this:
+deepIterator(userInfo);
+// LOG: Avi
+// LOG: Flombaum
+// LOG: Flatbook Labs
+// LOG: Developer Apprentice
+// LOG: Nancy
+// LOG: Burgess
+// LOG: Flatbook Labs
+// LOG: Developer Apprentice
+// LOG: Corinna
+// LOG: Jackson
+// LOG: Flatbook Labs
+// LOG: Lead Developer
+// LOG: Flatbook
+// LOG: The premier Flatiron School-based social network in the world.
+// LOG: Scuber
+// LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
+```
 
-![Initial `debugger` screen](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/first_debugger.png)
-
-On line 2 in the upper-left-hand corner, the `debugger` statement currently pausing execution is highlighted. In the upper-right-hand corner, we can see the **Call Stack**, which is the list of currently active, nested execution contexts. `shallowIterator` is the execution context created by our function, and `(anonymous)` is the global execution context. Under the `Scope` drop-down, we see a few different scope categories. The most salient for us is the `Local` scope, in which we can see that our `target` parameter took on the value of the `primes` array we passed into the function. Don't worry about `this` for now — we'll cover that soon!
-
-While the execution is paused, we can hover our mouse over identifiers (function and variable names, including function parameters) to check their current value:
-
-![Inspecting the `target` function parameter](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/inspecting_parameter.png)
-
-We can also use the console to perform those same checks:
-
-<picture>
-  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/checking_value_of_target.webp" type="image/webp">
-  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/checking_value_of_target.gif" type="image/gif">
-  <img src="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/checking_value_of_target.gif" alt="Checking the value of `target` in the JS console.">
-</picture>
-
-Once you're done poking around at the current, stopped state of your code, go ahead and press the **Resume script execution** button, which will resume execution:
-
-<picture>
-  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/devtools.webp" type="image/webp">
-  <source srcset="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/devtools.gif" type="image/gif">
-  <img src="https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/devtools.gif" alt="Options for resuming / controlling script execution in the debugger tools.">
-</picture>
-
-However, the JavaScript engine doesn't make it very far before encountering our second `debugger` keyword:
-
-![Inspecting values after the second `debugger` is hit.](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/inspecting_values_in_second_debugger.png)
-
-Continue stepping through the `debugger` statements, inspecting variables and playing around with the interface. Note that putting a `debugger` in a loop or iteration, such as our `for...in`, causes it to trigger on every pass through the loop.
+Whew!
 
 ## Conclusion
 
-This is very advanced stuff, and you should absolutely not get discouraged if it doesn't click at first. Create some other nested data structures and traverse over them with `shallowIterator()` and `deepIterator()`, noting the limitations of the former. Throw some `debugger` statements into `deepIterator()` to slow execution down and get a handle on what's happening at each step of the process.
+This is very advanced stuff, and you should absolutely not get discouraged if it
+doesn't click at first. Create some other nested data structures and traverse
+over them with `shallowIterator()` and `deepIterator()`, noting the limitations
+of the former. Use the debugging tools available to you to get a handle on
+what's happening at each step of the process.
 
 You got this!
 
@@ -478,3 +583,7 @@ You got this!
 * [MDN: Recursion (JavaScript)](https://docs.microsoft.com/en-us/scripting/javascript/advanced/recursion-javascript)
 * [freeCodeCamp: Recursion in JavaScript](https://medium.freecodecamp.org/recursion-in-javascript-1608032c7a1f)
 * [JavaScript.info: Debugging in Chrome](https://javascript.info/debugging-chrome)
+
+[repl.it]: https://repl.it/languages/javascript
+[array-methods]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#static_methods
+[isArray]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray

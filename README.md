@@ -100,7 +100,7 @@ const userInfo = {
 
 We've pared the sixteen messy properties in our first attempt down to a svelte
 five: `firstName`, `lastName`, `company`, `friends`, and `projects`. `company`
-points at another object, and both `friends` and `projects` are arrays of
+points at another object, and both `friends` and `projects` point to arrays of
 objects. Let's practice accessing some of those beautifully nested data points.
 Copy `userInfo` into [repl.it][] and follow along.
 
@@ -131,9 +131,10 @@ userInfo.projects[1].title;
 //=> "Scuber"
 ```
 
-It's worth investing some time into getting comfortable with nested data
-structures. Create your own in the REPL and practice accessing various pieces of
-data.
+It's worth spending some time getting comfortable with nested data structures
+&mdash; you will see a lot of them as you proceed through the curriculum and in
+your career as a developer. Create your own in the REPL and practice accessing
+various pieces of data.
 
 ## Arrays in arrays
 
@@ -334,12 +335,12 @@ function deepIterator(target) {
 ```
 
 When we invoke `deepIterator()` with an argument, the function first checks if
-the argument is an object or array (recall that the `typeof` operator returns
-`"object"` for arrays as well). If the argument **isn't** an object,
-`deepIterator()` simply `console.log()`s out the argument and exits. However, if
-the argument **is** an object, we iterate over the properties (or elements) in
-the object, passing each to `deepIterator()` and **re-invoking the function**.
-That's recursion!
+the argument is an object (recall that the `typeof` operator returns `"object"`
+for arrays as well). If the argument **isn't** an object, `deepIterator()`
+simply `console.log()`s out the argument and exits. However, if the argument
+**is** an object, we iterate over the properties (or elements) in the object,
+passing each to `deepIterator()` and **re-invoking the function**. That's
+recursion!
 
 Let's see it in action:
 
@@ -355,14 +356,15 @@ deepIterator(numbers);
 // LOG: 3
 ```
 
-To help us see what's going on here let's use a REPL. We've added a
-`console.log()` at the top of the function that will log whatever argument was
-passed to our function. We've also added a label to the second `console.log()`
-so you can see the values that are getting logged from the `else` statement. If
-you press the "Run" button, you will see an "Argument" logged for each time the
-function is called. You will also see a "Logged value" for each time the
-argument is not an object. Referring to the output of the `console.log()`s, step
-through the function for each element to trace what's happening.
+To help us see what's going on here let's use a REPL. Notice that, in the
+version of the function in the REPL, we've added a `console.log()` at the top of
+the function that will log whatever argument was passed to our function. We've
+also added a label to the second `console.log()` so you can see the values that
+are getting logged from the `else` statement. If you press the "Run" button, you
+will see an "Argument" logged for each time the function is called. You will
+also see a "Logged value" for each time the code in the `else` executes.
+Referring to the output of the `console.log()`s, step through the function for
+each element to trace what's happening.
 
 <iframe height="400px" width="100%" src="https://repl.it/@LizBurton/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 

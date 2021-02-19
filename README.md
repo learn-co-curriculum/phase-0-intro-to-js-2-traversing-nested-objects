@@ -132,7 +132,7 @@ userInfo.projects[1].title;
 ```
 
 It's worth spending some time getting comfortable with nested data structures
-&mdash; you will see a lot of them as you proceed through the curriculum and in
+— you will see a lot of them as you proceed through the curriculum and in
 your career as a developer. Create your own in the REPL and practice accessing
 various pieces of data.
 

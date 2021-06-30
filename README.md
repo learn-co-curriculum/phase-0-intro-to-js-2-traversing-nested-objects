@@ -467,7 +467,8 @@ If we look closely at our nested `userInfo` object, we can see that it contains
 two arrays, seven nested objects, and sixteen key-value pairs where the value is
 a string. Add those all up (2 + 7 + 16), and you get our 25 recursive
 invocations! (If you're following along in the REPL, you can check the value of
-`counter` in the terminal after running the code.)
+`counter` by either adding it to the end of your code as shown above or by typing 
+it into in the repl.it terminal window after running the code.)
 
 ## Modifying our Program to Better Handle Arrays
 

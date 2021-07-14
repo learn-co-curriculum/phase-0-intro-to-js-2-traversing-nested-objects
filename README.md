@@ -309,7 +309,7 @@ there are two pretty clear drawbacks to this strategy:
    error-prone work, and it results in a function that can only be used for data
    with that particular structure.
 
-![No! There has to be another way.](https://curriculum-content.s3.amazonaws.com/web-development/js/looping-and-iteration/traversing-nested-objects-readme/no_there_has_to_be_another_way.gif)
+There has to be another way!
 
 ### Recursion
 

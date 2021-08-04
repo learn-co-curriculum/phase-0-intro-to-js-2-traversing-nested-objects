@@ -2,9 +2,9 @@
 
 ## Learning Goals
 
-* Revisit why nested objects are useful
-* Review how to access inner properties
-* Use recursion to iterate over nested objects and arrays
+- Revisit why nested objects are useful
+- Review how to access inner properties
+- Use recursion to iterate over nested objects and arrays
 
 ## Introduction
 
@@ -13,42 +13,44 @@ premier Flatiron School-based social network. Here at Flatbook, we have some
 pretty complex data-modeling needs. For instance, think about the breadth of
 information we might want to display on each user's profile page:
 
-* First name
-* Last name
-* Employer
-  * Company name
-  * Job title
-* Friends
-  * First name
-  * Last name
-  * Employer
-    * Company name
-    * Job title
-* Projects
-  * Title
-  * Description
+- First name
+- Last name
+- Employer
+  - Company name
+  - Job title
+- Friends
+  - First name
+  - Last name
+  - Employer
+    - Company name
+    - Job title
+- Projects
+  - Title
+  - Description
 
 We can already start to see some problems with trying to fit all of this into a
 _shallow_ (non-nested) JavaScript object:
 
 ```js
 const userInfo = {
-  firstName: 'Avi',
-  lastName: 'Flombaum',
-  companyName: 'Flatbook Labs',
-  jobTitle: 'Developer Apprentice',
-  friend1firstName: 'Nancy',
-  friend1lastName: 'Burgess',
-  friend1companyName: 'Flatbook Labs',
-  friend1jobTitle: 'Developer Apprentice',
-  friend2firstName: 'Corinna',
-  friend2lastName: 'Jackson',
-  friend2companyName: 'Flatbook Labs',
-  friend2jobTitle: 'Senior Developer',
-  project1title: 'Flatbook',
-  project1description: 'The premier Flatiron School-based social network in the world.',
-  project2title: 'Scuber',
-  project2description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
+  firstName: "Avi",
+  lastName: "Flombaum",
+  companyName: "Flatbook Labs",
+  jobTitle: "Developer Apprentice",
+  friend1firstName: "Nancy",
+  friend1lastName: "Burgess",
+  friend1companyName: "Flatbook Labs",
+  friend1jobTitle: "Developer Apprentice",
+  friend2firstName: "Corinna",
+  friend2lastName: "Jackson",
+  friend2companyName: "Flatbook Labs",
+  friend2jobTitle: "Senior Developer",
+  project1title: "Flatbook",
+  project1description:
+    "The premier Flatiron School-based social network in the world.",
+  project2title: "Scuber",
+  project2description:
+    "A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.",
 };
 ```
 
@@ -65,36 +67,42 @@ it becomes significantly easier to read and update:
 
 ```js
 const userInfo = {
-  firstName: 'Avi',
-  lastName: 'Flombaum',
+  firstName: "Avi",
+  lastName: "Flombaum",
   company: {
-    name: 'Flatbook Labs',
-    jobTitle: 'Developer Apprentice'
+    name: "Flatbook Labs",
+    jobTitle: "Developer Apprentice",
   },
-  friends: [{
-    firstName: 'Nancy',
-    lastName: 'Burgess',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Developer Apprentice'
-    }
-  },
-  {
-    firstName: 'Corinna',
-    lastName: 'Jackson',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Lead Developer'
-    }
-  }],
-  projects: [{
-    title: 'Flatbook',
-    description: 'The premier Flatiron School-based social network in the world.'
-  },
-  {
-    title: 'Scuber',
-    description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
-  }]
+  friends: [
+    {
+      firstName: "Nancy",
+      lastName: "Burgess",
+      company: {
+        name: "Flatbook Labs",
+        jobTitle: "Developer Apprentice",
+      },
+    },
+    {
+      firstName: "Corinna",
+      lastName: "Jackson",
+      company: {
+        name: "Flatbook Labs",
+        jobTitle: "Lead Developer",
+      },
+    },
+  ],
+  projects: [
+    {
+      title: "Flatbook",
+      description:
+        "The premier Flatiron School-based social network in the world.",
+    },
+    {
+      title: "Scuber",
+      description:
+        "A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.",
+    },
+  ],
 };
 ```
 
@@ -121,7 +129,8 @@ userInfo.company.jobTitle;
 ```
 
 If the property is nested inside an array, we need to specify the index in the
-array for the object that we want. To get the first name of Avi's first friend and the title of his second project:
+array for the object that we want. To get the first name of Avi's first friend
+and the title of his second project:
 
 ```js
 userInfo.friends[0].firstName;
@@ -131,9 +140,9 @@ userInfo.projects[1].title;
 //=> "Scuber"
 ```
 
-It's worth spending some time getting comfortable with nested data structures
-— you will see a lot of them as you proceed through the curriculum and in
-your career as a developer. Create your own in the REPL and practice accessing
+It's worth spending some time getting comfortable with nested data structures —
+you will see a lot of them as you proceed through the curriculum and in your
+career as a developer. Create your own in the REPL and practice accessing
 various pieces of data.
 
 ## Arrays in arrays
@@ -143,7 +152,7 @@ replace the named properties of nested objects with indexes of nested arrays.
 Let's review with an example:
 
 ```js
-const letters = ['a', ['b', ['c', ['d', ['e']], 'f']]];
+const letters = ["a", ["b", ["c", ["d", ["e"]], "f"]]];
 ```
 
 Given the above nested array, how would we get the letter `'e'`? First, we'd
@@ -168,14 +177,15 @@ letters[1][1][1];
 //=> ["d", ["e"]]
 ```
 
-And the second element of ***that*** element, `letters[1][1][1][1]`:
+And the second element of **_that_** element, `letters[1][1][1][1]`:
 
 ```js
 letters[1][1][1][1];
 //=> ["e"]
 ```
 
-Finally, we want the first element in that final nested array, `letters[1][1][1][1][0]`:
+Finally, we want the first element in that final nested array,
+`letters[1][1][1][1][0]`:
 
 ```js
 letters[1][1][1][1][0];
@@ -185,29 +195,36 @@ letters[1][1][1][1][0];
 Whew! That's a lot to keep track of. Just remember that each lookup (each set of
 square brackets) "drills down" into each successive nested array.
 
-## Iterating over nested objects and arrays
+## Bonus: Iterating over nested objects and arrays
+
+> **Note**: From here on out, this lesson gets pretty abstract! If you're
+> feeling confident with arrays and objects and are curious how to write some
+> abstract code to iterate over nested objects, continue on; otherwise, feel
+> free to skip to the conclusion.
 
 Our initial shallow object had a lot of drawbacks, but one advantage of it is
 that it was very easy to iterate over all of the information:
 
 ```js
 const userInfo = {
-  firstName: 'Avi',
-  lastName: 'Flombaum',
-  companyName: 'Flatbook Labs',
-  jobTitle: 'Developer Apprentice',
-  friend1firstName: 'Nancy',
-  friend1lastName: 'Burgess',
-  friend1companyName: 'Flatbook Labs',
-  friend1jobTitle: 'Developer Apprentice',
-  friend2firstName: 'Corinna',
-  friend2lastName: 'Jackson',
-  friend2companyName: 'Flatbook Labs',
-  friend2jobTitle: 'Senior Developer',
-  project1title: 'Flatbook',
-  project1description: 'The premier Flatiron School-based social network in the world.',
-  project2title: 'Scuber',
-  project2description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
+  firstName: "Avi",
+  lastName: "Flombaum",
+  companyName: "Flatbook Labs",
+  jobTitle: "Developer Apprentice",
+  friend1firstName: "Nancy",
+  friend1lastName: "Burgess",
+  friend1companyName: "Flatbook Labs",
+  friend1jobTitle: "Developer Apprentice",
+  friend2firstName: "Corinna",
+  friend2lastName: "Jackson",
+  friend2companyName: "Flatbook Labs",
+  friend2jobTitle: "Senior Developer",
+  project1title: "Flatbook",
+  project1description:
+    "The premier Flatiron School-based social network in the world.",
+  project2title: "Scuber",
+  project2description:
+    "A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.",
 };
 
 function shallowIterator(target) {
@@ -248,7 +265,14 @@ shallowIterator(primes);
 // LOG: 11
 ```
 
-> **Note**: our `shallowIterator()` function uses `for...in` to iterate through the object that's passed to it. We learned in the previous lesson that `for...in` is not the best iterator to use with arrays. Because we're not currently working in the browser (and therefore cross-browser consistency isn't an issue), we can safely ignore that problem for the moment. Since this example is fairly complicated, we'll work through the process using `for...in` first then, once we've got that working, build a modification that will handle arrays appropriately.
+> **Note**: our `shallowIterator()` function uses `for...in` to iterate through
+> the object that's passed to it. We learned in the previous lesson that
+> `for...in` is not the best iterator to use with arrays. Because we're not
+> currently working in the browser (and therefore cross-browser consistency
+> isn't an issue), we can safely ignore that problem for the moment. Since this
+> example is fairly complicated, we'll work through the process using `for...in`
+> first then, once we've got that working, build a modification that will handle
+> arrays appropriately.
 
 Unfortunately, as you may be able to guess from its name, our `shallowIterator()`
 function can't handle nested collections:
@@ -264,10 +288,10 @@ shallowIterator(numbers);
 It's trained to iterate over the passed-in array's elements or object's
 properties, but our function has no concept of _depth_. When it tries to iterate
 over the above nested `numbers` array, it sees only two elements at the top
-level of the array: the number `1` and **another** array, `[2, [4, [5, [6]],
-3]]`. It `console.log()`s out both of those elements and calls it a day, never
-realizing that we also want it to print out the elements inside the nested
-array.
+level of the array: the number `1` and **another** array,
+`[2, [4, [5, [6]], 3]]`. It `console.log()`s out both of those elements and
+calls it a day, never realizing that we also want it to print out the elements
+inside the nested array.
 
 It behaves similarly with objects. If we passed the nested version of `userInfo`
 to it, the values at the top level of the object ("Avi" and "Flombaum") would be
@@ -282,7 +306,7 @@ using an `if` condition and the `typeof` operator:
 ```js
 function shallowIterator(target) {
   for (const key in target) {
-    if (typeof target[key] === 'object') {
+    if (typeof target[key] === "object") {
       for (const nestedKey in target[key]) {
         console.log(target[key][nestedKey]);
       }
@@ -324,7 +348,7 @@ advantage of recursion:
 
 ```js
 function deepIterator(target) {
-  if (typeof target === 'object') {
+  if (typeof target === "object") {
     for (const key in target) {
       deepIterator(target[key]);
     }
@@ -372,36 +396,42 @@ Our function also works with combinations of nested objects and arrays:
 
 ```js
 const userInfo = {
-  firstName: 'Avi',
-  lastName: 'Flombaum',
+  firstName: "Avi",
+  lastName: "Flombaum",
   company: {
-    name: 'Flatbook Labs',
-    jobTitle: 'Developer Apprentice'
+    name: "Flatbook Labs",
+    jobTitle: "Developer Apprentice",
   },
-  friends: [{
-    firstName: 'Nancy',
-    lastName: 'Burgess',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Developer Apprentice'
-    }
-  },
-  {
-    firstName: 'Corinna',
-    lastName: 'Jackson',
-    company: {
-      name: 'Flatbook Labs',
-      jobTitle: 'Lead Developer'
-    }
-  }],
-  projects: [{
-    title: 'Flatbook',
-    description: 'The premier Flatiron School-based social network in the world.'
-  },
-  {
-    title: 'Scuber',
-    description: 'A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.'
-  }]
+  friends: [
+    {
+      firstName: "Nancy",
+      lastName: "Burgess",
+      company: {
+        name: "Flatbook Labs",
+        jobTitle: "Developer Apprentice",
+      },
+    },
+    {
+      firstName: "Corinna",
+      lastName: "Jackson",
+      company: {
+        name: "Flatbook Labs",
+        jobTitle: "Lead Developer",
+      },
+    },
+  ],
+  projects: [
+    {
+      title: "Flatbook",
+      description:
+        "The premier Flatiron School-based social network in the world.",
+    },
+    {
+      title: "Scuber",
+      description:
+        "A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.",
+    },
+  ],
 };
 
 deepIterator(userInfo);
@@ -423,7 +453,8 @@ deepIterator(userInfo);
 // LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
 ```
 
-To keep track of how many times our function is recursively invoking itself, it might be helpful to use a counter variable:
+To keep track of how many times our function is recursively invoking itself, it
+might be helpful to use a counter variable:
 
 ```js
 let counter = 0;
@@ -431,7 +462,7 @@ let counter = 0;
 function deepIterator(target) {
   counter++;
 
-  if (typeof target === 'object') {
+  if (typeof target === "object") {
     for (const key in target) {
       deepIterator(target[key]);
     }
@@ -467,10 +498,10 @@ If we look closely at our nested `userInfo` object, we can see that it contains
 two arrays, seven nested objects, and sixteen key-value pairs where the value is
 a string. Add those all up (2 + 7 + 16), and you get our 25 recursive
 invocations! (If you're following along in the REPL, you can check the value of
-`counter` by either adding it to the end of your code as shown above or by typing 
-it into in the repl.it terminal window after running the code.)
+`counter` by either adding it to the end of your code as shown above or by
+typing it into in the repl.it terminal window after running the code.)
 
-## Modifying our Program to Better Handle Arrays
+### Modifying our Program to Better Handle Arrays
 
 In our `deepIterator()` function, we're using an `if` statement to evaluate the
 argument that's passed in. We do one thing if `target` is an object and
@@ -480,14 +511,14 @@ adding an `else if` to our `if` statement; its code block will execute **if**
 `target` is an array.
 
 We can determine whether a variable is an array using an [Array Static
-Method][array-methods], [`Array.isArray()`][isArray]. Let's use that in our new
+Method][array-methods], [`Array.isArray()`][isarray]. Let's use that in our new
 condition. We'll also add a new `console.log()` to verify that our code is
 correctly detecting the arrays (we've commented out the final `console.log()`
 for now):
 
 ```js
 function deepIterator(target) {
-  if (typeof target === 'object') {
+  if (typeof target === "object") {
     for (const key in target) {
       deepIterator(target[key]);
     }
@@ -513,7 +544,7 @@ function deepIterator(target) {
   if (Array.isArray(target)) {
     // iterate through the array
     console.log("We found an array");
-  } else if (typeof target === 'object') {
+  } else if (typeof target === "object") {
     for (const key in target) {
       deepIterator(target[key]);
     }
@@ -541,7 +572,7 @@ function deepIterator(target) {
     for (const element of target) {
       deepIterator(element);
     }
-  } else if (typeof target === 'object') {
+  } else if (typeof target === "object") {
     for (const key in target) {
       deepIterator(target[key]);
     }
@@ -583,10 +614,10 @@ You got this!
 
 ## Resources
 
-* [MDN: Recursion (JavaScript)](https://docs.microsoft.com/en-us/scripting/javascript/advanced/recursion-javascript)
-* [freeCodeCamp: Recursion in JavaScript](https://medium.freecodecamp.org/recursion-in-javascript-1608032c7a1f)
-* [JavaScript.info: Debugging in Chrome](https://javascript.info/debugging-chrome)
+- [MDN: Recursion (JavaScript)](https://docs.microsoft.com/en-us/scripting/javascript/advanced/recursion-javascript)
+- [freeCodeCamp: Recursion in JavaScript](https://medium.freecodecamp.org/recursion-in-javascript-1608032c7a1f)
+- [JavaScript.info: Debugging in Chrome](https://javascript.info/debugging-chrome)
 
 [repl.it]: https://repl.it/languages/javascript
 [array-methods]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#static_methods
-[isArray]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+[isarray]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray

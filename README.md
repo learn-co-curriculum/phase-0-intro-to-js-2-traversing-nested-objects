@@ -3,8 +3,8 @@
 ## Learning Goals
 
 - Revisit why nested objects are useful
-- Review how to access inner properties
-- Use recursion to iterate over nested objects and arrays
+- Practice accessing inner properties
+- **Bonus**: Use recursion to iterate over nested objects and arrays
 
 ## Introduction
 
@@ -200,7 +200,7 @@ square brackets) "drills down" into each successive nested array.
 > **Note**: From here on out, this lesson gets pretty abstract! If you're
 > feeling confident with arrays and objects and are curious how to write some
 > abstract code to iterate over nested objects, continue on; otherwise, feel
-> free to skip to the conclusion.
+> free to continue to the next lesson.
 
 Our initial shallow object had a lot of drawbacks, but one advantage of it is
 that it was very easy to iterate over all of the information:

@@ -380,17 +380,35 @@ deepIterator(numbers);
 // LOG: 3
 ```
 
-To help us see what's going on here let's use a REPL. Notice that, in the
-version of the function in the REPL, we've added a `console.log()` at the top of
-the function that will log whatever argument was passed to our function. We've
-also added a label to the second `console.log()` so you can see the values that
-are getting logged from the `else` statement. If you press the "Run" button, you
-will see an "Argument" logged for each time the function is called. You will
-also see a "Logged value" for each time the code in the `else` executes.
-Referring to the output of the `console.log()`s, step through the function for
-each element to trace what's happening.
+To help us see what's going on here let's use a REPL. Here's the code we'll use:
 
-<iframe height="400px" width="100%" src="https://repl.it/@LizBurton/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+```js
+function deepIterator(target) {
+  console.log("Argument: ", target);
+  if (typeof target === 'object') {
+    for (const key in target) {
+      deepIterator(target[key]);
+    }
+  } else {
+    console.log("Logged value: ", target);
+  }
+}
+
+const numbers = [1, [2, [4, [5, [6]], 3]]];
+
+deepIterator(numbers);
+```
+
+Notice that, in the code above, we've added a `console.log()` at the top of the
+function that will log whatever argument was passed to our function. We've also
+added a label to the second `console.log()` so you can see the values that are
+getting logged from the `else` statement. Copy the code into the repl console
+below and press enter. You will see an "Argument" logged for each time the
+function is called. You will also see a "Logged value" for each time the code in
+the `else` executes. Referring to the output of the `console.log()`s, step
+through the function for each element to trace what's happening.
+
+<iframe height="400px" width="100%" src="https://repl.it/@LizBurton/UprightWiryCopyleft?lite=true&outputonly=1" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 Our function also works with combinations of nested objects and arrays:
 

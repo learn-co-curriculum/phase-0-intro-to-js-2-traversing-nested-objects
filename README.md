@@ -110,7 +110,7 @@ We've pared the sixteen messy properties in our first attempt down to a svelte
 five: `firstName`, `lastName`, `company`, `friends`, and `projects`. `company`
 points at another object, and both `friends` and `projects` point to arrays of
 objects. Let's practice accessing some of those beautifully nested data points.
-Copy `userInfo` into [repl.it][] and follow along.
+Copy `userInfo` into [replit][] and follow along.
 
 To review, for a property at the top level of our object, we can grab a value
 using dot notation:
@@ -390,7 +390,7 @@ also see a "Logged value" for each time the code in the `else` executes.
 Referring to the output of the `console.log()`s, step through the function for
 each element to trace what's happening.
 
-<iframe height="400px" width="100%" src="https://repl.it/@LizBurton/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+<iframe height="400px" width="100%" src="https://replit.com/@lizbur10/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
 Our function also works with combinations of nested objects and arrays:
 
@@ -497,9 +497,9 @@ So we invoked `deepIterator()` once, and it invoked itself 25 additional times!
 If we look closely at our nested `userInfo` object, we can see that it contains
 two arrays, seven nested objects, and sixteen key-value pairs where the value is
 a string. Add those all up (2 + 7 + 16), and you get our 25 recursive
-invocations! (If you're following along in the REPL, you can check the value of
-`counter` by either adding it to the end of your code as shown above or by
-typing it into in the repl.it terminal window after running the code.)
+invocations! (If you're following along in the REPL, remember that you can
+either wrap the value of `counter` in a `console.log()` in the code window or
+check it in the console window.)
 
 ### Modifying our Program to Better Handle Arrays
 
@@ -618,6 +618,6 @@ You got this!
 - [freeCodeCamp: Recursion in JavaScript](https://medium.freecodecamp.org/recursion-in-javascript-1608032c7a1f)
 - [JavaScript.info: Debugging in Chrome](https://javascript.info/debugging-chrome)
 
-[repl.it]: https://repl.it/languages/javascript
+[replit]: https://replit.com/languages/javascript
 [array-methods]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#static_methods
 [isarray]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray

@@ -110,7 +110,9 @@ We've pared the sixteen messy properties in our first attempt down to a svelte
 five: `firstName`, `lastName`, `company`, `friends`, and `projects`. `company`
 points at another object, and both `friends` and `projects` point to arrays of
 objects. Let's practice accessing some of those beautifully nested data points.
-Copy `userInfo` into [replit][] and follow along.
+Copy `userInfo` into the [replit][] code window and follow along. Once you click
+run, you can check the values of the variable's properties in the console
+window.
 
 To review, for a property at the top level of our object, we can grab a value
 using dot notation:
@@ -380,21 +382,50 @@ deepIterator(numbers);
 // LOG: 3
 ```
 
-To help us see what's going on here let's use a REPL. Notice that, in the
-version of the function in the REPL, we've added a `console.log()` at the top of
-the function that will log whatever argument was passed to our function. We've
-also added a label to the second `console.log()` so you can see the values that
-are getting logged from the `else` statement. If you press the "Run" button, you
-will see an "Argument" logged for each time the function is called. You will
-also see a "Logged value" for each time the code in the `else` executes.
-Referring to the output of the `console.log()`s, step through the function for
-each element to trace what's happening.
-
-<iframe height="400px" width="100%" src="https://replit.com/@lizbur10/UprightWiryCopyleft?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-
-Our function also works with combinations of nested objects and arrays:
+To help us see what's going on here let's use a REPL. Go ahead and copy the
+following code into [replit][]:
 
 ```js
+function deepIterator(target) {
+    console.log("Argument: ", target);
+    if (typeof target === 'object') {
+      for (const key in target) {
+        deepIterator(target[key]);
+      }
+    } else {
+      console.log("Logged value: ", target);
+    }
+  }
+
+  const numbers = [1, [2, [4, [5, [6]], 3]]];
+
+  deepIterator(numbers);
+```
+
+Notice that we've added a `console.log()` at the top of the function that will
+log whatever argument was passed to our function. We've also added a label to
+the second `console.log()` so you can see the values that are getting logged
+from the `else` statement. If you run the code, you will see an "Argument"
+logged for each time the function is called. You will also see a "Logged value"
+for each time the code in the `else` executes. Referring to the output of the
+`console.log()`s, step through the function for each element to trace what's
+happening.
+
+Our function also works with combinations of nested objects and arrays. Replace
+the existing code in replit with the following and run it (we've gone back to a
+single `console.log()` inside our function to make the output easier to read):
+
+```js
+function deepIterator(target) {
+    if (typeof target === 'object') {
+      for (const key in target) {
+        deepIterator(target[key]);
+      }
+    } else {
+      console.log(target);
+    }
+  }
+
 const userInfo = {
   firstName: "Avi",
   lastName: "Flombaum",
@@ -489,17 +520,18 @@ deepIterator(userInfo);
 // LOG: Scuber
 // LOG: A burgeoning startup helping busy parents transport their children to and from all of their activities on scooters.
 
-counter;
-//=> 26
 ```
 
-So we invoked `deepIterator()` once, and it invoked itself 25 additional times!
-If we look closely at our nested `userInfo` object, we can see that it contains
-two arrays, seven nested objects, and sixteen key-value pairs where the value is
-a string. Add those all up (2 + 7 + 16), and you get our 25 recursive
-invocations! (If you're following along in the REPL, remember that you can
-either wrap the value of `counter` in a `console.log()` in the code window or
-check it in the console window.)
+If you check the value of `counter` after running the code, you should see that
+`deepIterator()` was called a total of 26 times: we invoked it once, and it
+invoked itself 25 additional times! If we look closely at our nested `userInfo`
+object, we can see that it contains two arrays, seven nested objects, and
+sixteen key-value pairs where the value is a string. Add those all up (2 + 7 +
+16), and you get our 25 recursive invocations!
+
+**Reminder**: You can check the value of `counter` by either wrapping it in a
+`console.log()` in the code window or checking it in the console window after
+running the code.
 
 ### Modifying our Program to Better Handle Arrays
 

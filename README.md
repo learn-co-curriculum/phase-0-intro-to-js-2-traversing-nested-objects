@@ -151,7 +151,14 @@ various pieces of data.
 
 Working with nested arrays isn't all that different from nested objects. Simply
 replace the named properties of nested objects with indexes of nested arrays.
-Let's review with an example:
+Let's review with an example. Be sure to follow along in the REPL.
+
+**Top Tip:** You may have discovered that, when you're working in the embedded 
+terminal in VS Code or the terminal application on your computer, you can repeat
+the last command you ran by pressing the "up" arrow key. The same is true in the
+REPL console! Give it a try.
+
+Copy the following code into the REPL's code window:
 
 ```js
 const letters = ["a", ["b", ["c", ["d", ["e"]], "f"]]];
